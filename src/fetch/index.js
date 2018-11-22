@@ -1,12 +1,18 @@
 import Config from "../config"
 class Fetch{
     constructor(){
-        this.baseUrl = Config.baseUrl
+        this.baseUrl = Config.baseUrl;
+        this.fetchOptions = {
+            method: 'GET',
+            mode: "cors",
+            headers: Header,
+            credentials: 'include',
+          };
     }
-    request(){
-        let options = {
-
-        }
-        fetch("www.baidu.com", )
+    request(option){
+        if(option)
+        
+       
+        fetch("www.baidu.com",{} )
     }
 }
