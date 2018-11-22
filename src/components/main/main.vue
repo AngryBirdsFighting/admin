@@ -3,7 +3,7 @@
     <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
         <Row type="flex">
             <i-col :span="spanLeft" class="layout-menu-left">
-               <slide-menu :data = menuData></slide-menu>
+               <slide-menu :menuList = menuList></slide-menu>
             </i-col>
             <i-col :span="spanRight">
                 <div class="layout-header">
@@ -31,8 +31,9 @@
     </div>
 </template>
 <script>
-import slideMenu from "./slideMenu/slideMenu.vue"
-import headerBar from "./headerBar/headerBar.vue"
+import slideMenu from "./slideMenu/slideMenu.vue";
+import headerBar from "./headerBar/headerBar.vue";
+import {mapGetters} from "vuex";
     export default {
         data () {
             return {
@@ -89,10 +90,19 @@ import headerBar from "./headerBar/headerBar.vue"
                 }]
             }
         },
+        components:{
+            "slide-menu": slideMenu,
+            "header-bar": headerBar
+        },
         computed: {
             iconSize () {
                 return this.spanLeft === 3 ? 14 : 24;
-            }
+            },
+            ...mapGetters(["menuList"])
+        },
+        created(){
+            // this.$store
+            console.log(this.menuList)
         },
         methods: {
             toggleClick () {
@@ -104,11 +114,8 @@ import headerBar from "./headerBar/headerBar.vue"
                     this.spanRight = 19;
                 }
             }
-        },
-        components:{
-            "slide-menu": slideMenu,
-            "header-bar": headerBar
         }
+        
     }
 </script>
 

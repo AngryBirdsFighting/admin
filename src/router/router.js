@@ -1,7 +1,6 @@
 import Main from '../components/main/main.vue'
 
 /**
- * iview-admin中meta除了原生参数外可配置的参数:
  * meta: {
  *  title: { String|Number|Function }
  *         显示在侧边栏、面包屑和标签栏的文字
@@ -17,6 +16,16 @@ import Main from '../components/main/main.vue'
 
 export default [
   {
+    path: '/',
+    name: 'home',
+    component: Main,
+    meta: {
+      title: 'L',
+      hideInMenu: true
+    },
+    // component: () => import('')
+  },
+  {
     path: '/login',
     name: 'login',
     meta: {
@@ -26,34 +35,10 @@ export default [
     // component: () => import('')
   },
   {
-    path: '/',
-    name: '_home',
-    redirect: '/home',
-    component: Main,
-    meta: {
-      hideInMenu: true,
-      notCache: true
-    },
-    children: [
-      {
-        path: '/home',
-        name: 'home',
-        meta: {
-          hideInMenu: true,
-          title: '首页',
-          notCache: true,
-          icon: 'md-home'
-        },
-        // component: () => import('')
-      }
-    ]
-  },
-  {
     path: '/menu1',
     name: 'menu1',
     component: Main,
     meta: {
-      hideInBread,
       icon: 'logo-buffer',
       title: '菜单1'
     },
@@ -92,7 +77,6 @@ export default [
     name: 'menu2',
     component: Main,
     meta: {
-      hideInBread,
       icon: 'logo-buffer',
       title: '菜单2'
     },

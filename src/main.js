@@ -1,7 +1,7 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router/index.js";
-import store from "./store";
+import store from "./store/";
 // import iView from 'iview';
 import "iview/dist/styles/iview.css";
 import { Button, Table, Submenu, MenuGroup, Menu, RadioGroup, MenuItem, Row, Col, Icon, Radio, Layout, Sider, Tag, Breadcrumb, BreadcrumbItem } from "iview";
