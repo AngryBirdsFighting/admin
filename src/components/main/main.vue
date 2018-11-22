@@ -33,61 +33,15 @@
 <script>
 import slideMenu from "./slideMenu/slideMenu.vue";
 import headerBar from "./headerBar/headerBar.vue";
+import { Fetch } from "../../fetch/";
+
+let fetch = new Fetch()
 import {mapGetters} from "vuex";
     export default {
         data () {
             return {
                 spanLeft: 3,
-                spanRight: 19,
-                menuData: [{
-                    code:1,
-                    name:"内容管理",
-                    icon:"ios-paper",
-                    child:[{
-                        code:1-1,
-                        name:"文章管理",
-                    },
-                    {
-                        code:1-2,
-                        name:"评论管理",
-                    },
-                    {
-                        code:1-3,
-                        name:"举报管理",
-                    }]         
-                },{
-                    code:2,
-                    name:"用户管理",
-                    icon:"ios-paper",
-                    child:[{
-                        code:2-1,
-                        name:"新增用户",
-                    },
-                    {
-                        code:2-2,
-                        name:"活跃用户",
-                    },
-                    {
-                        code:2-3,
-                        name:"举报管理",
-                    }]         
-                },{
-                    code:3,
-                    name:"内容管理",
-                    icon:"ios-paper",
-                    child:[{
-                        code:3-1,
-                        name:"文章管理",
-                    },
-                    {
-                        code:3-2,
-                        name:"评论管理",
-                    },
-                    {
-                        code:3-3,
-                        name:"举报管理",
-                    }]         
-                }]
+                spanRight: 19              
             }
         },
         components:{
@@ -101,8 +55,18 @@ import {mapGetters} from "vuex";
             ...mapGetters(["menuList"])
         },
         created(){
-            // this.$store
-            console.log(this.menuList)
+            let param = {
+                url: "/getData",
+                // type: "Get",
+                // data:{
+                //     a:"111",
+                //     b:"222"
+                // }
+            }
+            fetch.request(param, (data) => {
+                debugger
+                console.log(data)
+            })
         },
         methods: {
             toggleClick () {
