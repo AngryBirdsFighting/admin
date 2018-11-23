@@ -2,9 +2,9 @@ import Config from "../config";
 import { isEmptyByObj } from "../util/tools";
 
 class Fetch {
+
     constructor(){
         this.baseUrl = Config.baseUrl; 
-
         this.reqConfig = {
             credentials: 'include',
             method: "",
@@ -16,31 +16,19 @@ class Fetch {
             cache: "force-cache"
         }
     }
+
     // 增加超时限制
     request(url, param){
         return  Promise.race([
-            new Promise((resolve, reject) =>{
-               return fetch(url,param)
-            }) ,
+            fetch(url,param),
             new Promise(function(resolve,reject){ 
                 setTimeout(()=> reject("408"), Config.overtime)
             })
         ]).then( res=> {
-            debugger
-
-        }).then( res=> {
-            debugger
-
-        }).catch(err =>{
-            debugger
-
+            return res          
         }).catch(err => {
-            debugger
-            var res = {
-                status: err
-            }
-            return res
-        })
+            return err
+        })      
     }
 
     // 发送请求
@@ -61,14 +49,16 @@ class Fetch {
                 this.reqConfig.body = JSON.stringify(param.data)
             }
             var res = await this.request(this.baseUrl + param.url, this.reqConfig);
-            debugger
-             if(res.status == 200){
+            if(res == "408"){
+                callback({},"请求超时")
+            }else if(res.status == 200){
                 callback(await res.json())
             }else{
                 callback({},this.judgeRes(res))
-            }   
+            }            
         }  
     }
+
     // 错误判断
     judgeRes(res){
         let message = ""

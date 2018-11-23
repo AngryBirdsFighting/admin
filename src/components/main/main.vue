@@ -1,6 +1,6 @@
 
 <template>
-    <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
+    <div class="layout" :class="{'layout-hide-text': spanLeft < 5}" >
         <Row type="flex">
             <i-col :span="spanLeft" class="layout-menu-left">
                <slide-menu :menuList = menuList></slide-menu>
@@ -10,7 +10,7 @@
                      <Button type="text" @click="toggleClick">
                         <Icon type="md-menu" color="black" size="12"></Icon>
                     </Button>
-                    <header-bar></header-bar>
+                    <!-- <header-bar></header-bar> -->
                    
                 </div>
                 <div class="layout-breadcrumb">
@@ -20,7 +20,7 @@
                         <Breadcrumb-item>某应用</Breadcrumb-item>
                     </Breadcrumb>
                 </div>
-                <div class="layout-content">
+                <div class="layout-content" :style="'height:'+ height +'px;'" >
                     <div class="layout-content-main">内容区域</div>
                 </div>
                 <div class="layout-copy">
@@ -41,7 +41,7 @@ import {mapGetters} from "vuex";
         data () {
             return {
                 spanLeft: 3,
-                spanRight: 19              
+                spanRight: 21             
             }
         },
         components:{
@@ -49,6 +49,10 @@ import {mapGetters} from "vuex";
             "header-bar": headerBar
         },
         computed: {
+            height () {
+               let h =  window.innerHeight  - 170
+               return h
+            },
             iconSize () {
                 return this.spanLeft === 3 ? 14 : 24;
             },
@@ -57,16 +61,15 @@ import {mapGetters} from "vuex";
         created(){
             let param = {
                 url: "/getData",
-                type: "Get",
+                type: "Post",
                 data:{
                     a:"11111",
                     b:"222"
                 }
             }
             fetch.fetchAjax(param, (data, err) => {
-                debugger
                 if(err){
-                    console.log(err)
+                    alert(err)
                 }else{
                     console.log(data)
                 }
@@ -76,11 +79,14 @@ import {mapGetters} from "vuex";
             toggleClick () {
                 if (this.spanLeft === 3) {
                     this.spanLeft = 1;
-                    this.spanRight = 19;
+                    this.spanRight = 23;
                 } else {
                     this.spanLeft = 3;
-                    this.spanRight = 19;
+                    this.spanRight = 21;
                 }
+            },
+            setHeight(){
+
             }
         }
         
