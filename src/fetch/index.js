@@ -1,7 +1,10 @@
-import Config from "../config"
+import Config from "../config";
+import { isEmptyByObj } from "../util/tools";
+
 class Fetch {
     constructor(){
-        this.baseUrl = Config.baseUrl;
+        this.baseUrl = Config.baseUrl; 
+
         this.reqConfig = {
             credentials: 'include',
             method: "",
@@ -11,22 +14,110 @@ class Fetch {
             },
             mode: "cors",
             cache: "force-cache"
-          }
-    }
-    async request(param, callback){
-        debugger
-        this.reqConfig.method = param.type || "Get";
-        this.reqConfig.body = JSON.stringify(param.data)
-        try {
-            var res = await fetch(this.baseUrl + param.url, this.reqConfig);
-            debugger
-            // 判断状态后执行
-            var resData = await res.json();
-            callback(resData)
-        } catch (error) {
-            throw new Error(error)
         }
     }
+    // 增加超时限制
+    request(url, param){
+        return  Promise.race([
+            new Promise((resolve, reject) =>{
+               return fetch(url,param)
+            }) ,
+            new Promise(function(resolve,reject){ 
+                setTimeout(()=> reject("408"), Config.overtime)
+            })
+        ]).then( res=> {
+            debugger
+
+        }).then( res=> {
+            debugger
+
+        }).catch(err =>{
+            debugger
+
+        }).catch(err => {
+            debugger
+            var res = {
+                status: err
+            }
+            return res
+        })
+    }
+
+    // 发送请求
+    async fetchAjax(param, callback){
+        this.reqConfig.method = param.type || "Get";
+        if(isEmptyByObj(param.data)){
+            if(this.reqConfig.method == "Get"){
+                param.url += "?";
+                let i = 0
+                for (const key in param.data) {
+                    if(i != 0 ){
+                        param.url += "&";
+                    }
+                    param.url += `${key}=${param.data[key]}`
+                    i++        
+                }
+            } else {
+                this.reqConfig.body = JSON.stringify(param.data)
+            }
+            var res = await this.request(this.baseUrl + param.url, this.reqConfig);
+            debugger
+             if(res.status == 200){
+                callback(await res.json())
+            }else{
+                callback({},this.judgeRes(res))
+            }   
+        }  
+    }
+    // 错误判断
+    judgeRes(res){
+        let message = ""
+        switch (parseInt(res.status)) {
+            case 302:
+              message = '错误请求：找不到url请求（后台过滤）';
+              break;
+            case 400:
+              message = '错误请求：字段名称、类型前后台不一致';
+              break;
+            case 401:
+              message = '未授权，请重新登录';
+              break;
+            case 403:
+              message = '拒绝访问';
+              break;
+            case 404:
+              message = '请求错误,未找到该资源';
+              break;
+            case 405:
+              message = '请求方法未允许,可能是请求类型(get post)不一致';
+              break;
+            case 408:
+              message = '请求超时';
+              break;
+            case 500:
+              message = '服务器端出错';
+              break;
+            case 501:
+              message = '网络未实现';
+              break;
+            case 502:
+              message = '网络错误';
+              break;
+            case 503:
+              message = '服务不可用';
+              break;
+            case 504:
+              message = '网络超时';
+              break;
+            case 505:
+              message = 'http版本不支持该请求';
+              break;
+            default:
+              message = `连接错误${res.status}`;
+          }
+          return message
+    }
+
 }
 
 export { Fetch }

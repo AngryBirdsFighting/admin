@@ -57,15 +57,19 @@ import {mapGetters} from "vuex";
         created(){
             let param = {
                 url: "/getData",
-                // type: "Get",
-                // data:{
-                //     a:"111",
-                //     b:"222"
-                // }
+                type: "Get",
+                data:{
+                    a:"11111",
+                    b:"222"
+                }
             }
-            fetch.request(param, (data) => {
+            fetch.fetchAjax(param, (data, err) => {
                 debugger
-                console.log(data)
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(data)
+                }
             })
         },
         methods: {
