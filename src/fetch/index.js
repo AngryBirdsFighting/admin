@@ -16,7 +16,6 @@ class Fetch {
             cache: "force-cache"
         }
     }
-
     // 增加超时限制
     request(url, param){
         return  Promise.race([
@@ -31,9 +30,12 @@ class Fetch {
         })      
     }
 
-    // 发送请求
+    /**发送请求
+     * @param {Object} param url接口，data请求参数， type 请求类型，不写为Get
+     * @param  {Function} callback 回调函数
+     */
     async fetchAjax(param, callback){
-        this.reqConfig.method = param.type || "Get";
+        this.reqConfig.method = param.type || "Get";  
         if(isEmptyByObj(param.data)){
             if(this.reqConfig.method == "Get"){
                 param.url += "?";
@@ -104,10 +106,9 @@ class Fetch {
               break;
             default:
               message = `连接错误${res.status}`;
-          }
-          return message
+        }
+        return message
     }
-
 }
 
 export { Fetch }

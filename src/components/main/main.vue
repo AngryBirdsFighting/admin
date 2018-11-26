@@ -3,14 +3,14 @@
     <div class="layout" :class="{'layout-hide-text': spanLeft < 5}" >
         <Row type="flex">
             <i-col :span="spanLeft" class="layout-menu-left">
-               <slide-menu :menuList = menuList></slide-menu>
+               <slide-menu :menuList = menuList @on-select = "toPage"></slide-menu>
             </i-col>
             <i-col :span="spanRight">
                 <div class="layout-header">
-                     <Button type="text" @click="toggleClick">
+                    <Button type="text" @click="toggleClick">
                         <Icon type="md-menu" color="black" size="12"></Icon>
                     </Button>
-                    <!-- <header-bar></header-bar> -->
+                    <header-bar></header-bar>
                    
                 </div>
                 <div class="layout-breadcrumb">
@@ -21,7 +21,11 @@
                     </Breadcrumb>
                 </div>
                 <div class="layout-content" :style="'height:'+ height +'px;'" >
-                    <div class="layout-content-main">内容区域</div>
+                    <div class="layout-content-main">
+                        <router-view>
+                            
+                        </router-view>
+                    </div>
                 </div>
                 <div class="layout-copy">
                     2011-2016 &copy; TalkingData
@@ -59,6 +63,7 @@ import {mapGetters} from "vuex";
             ...mapGetters(["menuList"])
         },
         created(){
+            console.log(this.menuList)
             let param = {
                 url: "/getData",
                 type: "Post",
@@ -85,8 +90,10 @@ import {mapGetters} from "vuex";
                     this.spanRight = 21;
                 }
             },
-            setHeight(){
-
+            toPage (name){
+                let params = {}
+                debugger
+                this.$router.push({name, params})
             }
         }
         

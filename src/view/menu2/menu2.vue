@@ -1,18 +1,14 @@
 <template>
    <div>
-     <i-table></i-table>
+     我是menu2
    </div>
 </template>
 
 <script>
-import iTable from "../../components/table/table"
 export default {
   data () {
     return {}
   },
-  components: {
-    "i-table": iTable
-   }
  }
 </script>
 

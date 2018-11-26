@@ -18,6 +18,7 @@ export default [
   {
     path: '/',
     name: 'home',
+    redirect: '/menu1',
     component: Main,
     meta: {
       title: 'L',
@@ -44,16 +45,16 @@ export default [
     },
     children: [
       {
-        path: '/menu1-1',
+        path: 'menu1-1',
         name: 'menu1-1',
         meta: {
           icon: '_qq',
           title: '菜单1-1'
         },
-        // component: () => import('')
+        component: () => import('../view/menu1/menu1.vue')
       },
       {
-        path: '/menu1-2',
+        path: 'menu1-2',
         name: 'menu1-2',
         meta: {
           icon: '_qq',
@@ -62,7 +63,7 @@ export default [
         // component: () => import('')
       },
       {
-        path: '/menu1-3',
+        path: 'menu1-3',
         name: 'menu1-3',
         meta: {
           icon: '_qq',
@@ -82,16 +83,16 @@ export default [
     },
     children: [
       {
-        path: '/menu2-1',
+        path: 'menu2-1',
         name: 'menu2-1',
         meta: {
           icon: '_qq',
           title: '菜单2-1'
         },
-        // component: () => import('')
+        component: () => import('../view/menu2/menu2.vue')
       },
       {
-        path: '/menu2-2',
+        path: 'menu2-2',
         name: 'menu2-2',
         meta: {
           icon: '_qq',
@@ -100,7 +101,7 @@ export default [
         // component: () => import('')
       },
       {
-        path: '/menu2-3',
+        path: 'menu2-3',
         name: 'menu2-3',
         meta: {
           icon: '_qq',

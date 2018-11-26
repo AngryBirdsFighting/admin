@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Menu :theme="theme2" width="auto" :accordion="accordion">
+        <Menu :theme="theme2" width="auto" :accordion="accordion" @on-select = "handleSelect">
             <div v-if="menuList.length > 0">
                 <Submenu v-for="item in menuList" :name = item.path :key= item.path>
                     <template slot="title">
@@ -8,8 +8,8 @@
                         {{item.name}}
                     </template>
                     <div v-if="item.children">
-                        <Menu-item v-for="obj in item.children" :name = obj.path :key = obj.path>{{obj.name}}
-   
+                        <Menu-item v-for="obj in item.children" :name = obj.path :key = obj.path>
+                            {{obj.name}}
                         </Menu-item>
                     </div>
                 </Submenu>
@@ -26,7 +26,12 @@ export default {
       accordion: true
     };
   },
-   props: ["menuList"]
+   props: ["menuList"],
+   methods:{
+       handleSelect(name){
+           this.$emit("on-select", name)      
+       }
+   }
 };
 </script>
 
