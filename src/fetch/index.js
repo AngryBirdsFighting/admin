@@ -34,7 +34,6 @@ class Fetch {
      * @param  {Function} callback 回调函数
      */
     async fetchAjax(param, callback){
-        debugger
         this.reqConfig.method = param.method || "Get";  
         if(isEmptyByObj(param.data)){
             if(this.reqConfig.method == "Get"){
