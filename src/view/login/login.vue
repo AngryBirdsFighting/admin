@@ -18,7 +18,8 @@
 <script>
 import User from "../../api/user.js"
 import { mapMutations } from "vuex"
-import { buildMenu } from "../../util/menu.js"
+import { getRoutePermission, extendRoutes } from "../../util/menu.js"
+import AllRoutesData from "../../router/fullRouter"
 let user = new User()
     export default {
         data () {
@@ -49,15 +50,12 @@ let user = new User()
                        if(!err){
                            user.getUserInfo({ID:res.ID},(res, err) => {
                                debugger
-                               let menu = buildMenu(res.data.menus)
+                               let menu = getRoutePermission(res.data)
                                debugger
-                                // vm.setAccess(res.data.access)
-                                // vm.setPermission(res.data.permission)
-                                // vm.setUserName(res.data.name)
-                                // debugger
-                                // vm.$router.push({
-                                //     name: "menu1"
-                                // })
+                               let menuData = extendRoutes(menu, AllRoutesData)   
+                               console.log(vm.$router)   
+                               debugger
+                               console.log(menuData)                  
                            })
                        }
                    })

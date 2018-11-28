@@ -1,4 +1,5 @@
-import AllRoutesData from "../router/fullRouter"
+import router from "../router/index"
+import vue from "vue"
 
 export const getMenuListByRouter = (routers,access) =>{
     debugger
@@ -30,8 +31,8 @@ export const deepcopy = function (source) {
     return sourceCopy;
   };
 
-//组织返回菜单
-export const buildMenu = (menus, ckey) => {
+//构造返回菜单
+ const buildMenu = (menus, ckey) => {
     debugger
     let menuData = [];
     let indexKeys = Array.isArray(menus) ? menus.map((e) => {return e.id}) : [];
@@ -69,12 +70,11 @@ export const buildMenu = (menus, ckey) => {
         });
       }
     };
-    debugger
     findChildren(menuData);
     return menuData;
 } 
-
-const routePermission = function(userPermissions) {
+// 构造路由权限
+export const getRoutePermission = function(userPermissions) {
     debugger
     let routeHash = {};
     let setMenu2Hash = function(array, base) {
@@ -88,11 +88,81 @@ const routePermission = function(userPermissions) {
         }
       });
     };
-    // if (Array.isArray(userPermissions.menus)) {
-
-    // //   let arrayMenus = util.buildMenu(userPermissions.menus);
-    // //   debugger
-    // //   setMenu2Hash(arrayMenus);
-    // }
+    if (Array.isArray(userPermissions.menus)) {
+      let arrayMenus = buildMenu(userPermissions.menus);
+      setMenu2Hash(arrayMenus);
+    }
     return routeHash;
+  }
+
+  export const extendRoutes = (routePermission, AllRoutesData) => {
+    // Filtering local routes, get actual routing
+    
+    let actualRouter = [];
+    let findLocalRoute = function(array, base) {
+      let replyResult = [];
+      array.forEach(route => {
+        debugger
+        let pathKey = (base ? base + '/' : '') + route.path;
+        if (routePermission[pathKey]) {
+          if (Array.isArray(route.children)) {
+            route.children = findLocalRoute(route.children, route.path);
+          }
+          replyResult.push(route);
+        }
+      });
+      if (base) {
+        return replyResult;
+      } else {
+        actualRouter = actualRouter.concat(replyResult);
+      }
+    }
+    findLocalRoute(AllRoutesData[0].children);
+    
+    // If the user does not have any routing authority
+
+    if (!actualRouter || !actualRouter.length) {
+      // clear token, refresh page will jump to login screen.
+      // util.session('token','');
+      // Interface hints
+      return document.body.innerHTML = ('<h1>账号访问受限，请联系系统管理员！</h1>');
+    }
+    
+    // actualRouter.map(e => {
+
+    //   // Copy 'children' to 'meta' for rendering menu.(This step is optional.)
+
+    //   if (e.children) {
+    //     if (!e.meta) e.meta = {};
+    //     e.meta.children = e.children;
+    //   }
+      
+    //   // Add Per-Route Guard
+    //   // To prevent manual access to ultra vires routing after switching accounts
+      
+    //   return e.beforeEnter = (to, from, next) => {
+    //     if(routePermission[to.path]){
+    //       next()
+    //     }else{
+    //       next('/401')
+    //     }
+    //   }
+    // });
+    // Add actual routing to application
+    let originPath = deepcopy(AllRoutesData);
+    originPath[0].children = actualRouter;
+    debugger
+    vue.$router.addRoutes(originPath.concat([{
+        path: '*',
+        redirect: '/404'
+      }]));
+    console.log(actualRouter)
+    debugger
+    return actualRouter
+    // this.$router.addRoutes(originPath.concat([{
+    //   path: '*',
+    //   redirect: '/404'
+    // }]));
+    // Save information for rendering menu.(This step is optional.)
+    // this.$root.menuData = actualRouter;
   }
