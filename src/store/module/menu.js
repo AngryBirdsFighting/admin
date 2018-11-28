@@ -3,10 +3,10 @@ import { getMenuListByRouter } from "../../util/menu";
 
 export default{
     state:{
-        
+        menuList:[]
     },
     getters:{
-        menuList: () => getMenuListByRouter(Routers)
+        menuList: (state,getters,rootState) => getMenuListByRouter(Routers, rootState.user.access)
     }
 }
 

@@ -33,7 +33,7 @@ export default [
       title: 'Login - 登录',
       hideInMenu: true
     },
-    // component: () => import('')
+    component: () =>import('../view/login/login.vue')
   },
   {
     path: '/menu1',

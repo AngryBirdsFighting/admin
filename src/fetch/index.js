@@ -2,7 +2,6 @@ import Config from "../config";
 import { isEmptyByObj } from "../util/tools";
 
 class Fetch {
-
     constructor(){
         this.baseUrl = Config.baseUrl; 
         this.reqConfig = {
@@ -35,7 +34,8 @@ class Fetch {
      * @param  {Function} callback 回调函数
      */
     async fetchAjax(param, callback){
-        this.reqConfig.method = param.type || "Get";  
+        debugger
+        this.reqConfig.method = param.method || "Get";  
         if(isEmptyByObj(param.data)){
             if(this.reqConfig.method == "Get"){
                 param.url += "?";
