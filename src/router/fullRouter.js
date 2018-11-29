@@ -35,6 +35,38 @@ export default [{
         title: '商品信息'
       },
       component: () => import('../view/menu1/menu1.vue')
+    },
+    {
+      path: 'list2',
+      name: 'list2',
+      meta: {
+        title: '商品信息'
+      },
+      component: () => import('../view/menu1/menu1.vue')
+    }]
+  }, {
+    path: '/orders',
+    name: 'orders',
+    meta: {
+        icon: 'logo-buffer',
+        title: '订单管理'
+    },
+    component: Main,
+    children: [{
+      path: 'orders1',
+      name: 'orders1',
+      meta: {
+        title: '订单信息'
+      },
+      component: () => import('../view/menu1/menu1.vue')
+    },
+    {
+      path: 'orders2',
+      name: 'orders2',
+      meta: {
+        title: '订单信息'
+      },
+      component: () => import('../view/menu1/menu1.vue')
     }]
   }]
 }];

@@ -1,12 +1,8 @@
-import Routers from "../../router/router";
-import { getMenuListByRouter } from "../../util/menu";
 
-export default{
-    state:{
-        menuList:[]
+export default {
+    state: {
+  
     },
-    getters:{
-        menuList: (state,getters,rootState) => getMenuListByRouter(Routers, rootState.user.access)
-    }
+   
 }
 

@@ -5,11 +5,11 @@
                 <Submenu v-for="item in menuList" :name = item.path :key= item.path>
                     <template slot="title">
                     <Icon :type= item.meta.icon></Icon>
-                        {{item.name}}
+                        {{item.meta.title}}
                     </template>
                     <div v-if="item.children">
                         <Menu-item v-for="obj in item.children" :name = obj.path :key = obj.path>
-                            {{obj.name}}
+                            {{obj.meta.title}}
                         </Menu-item>
                     </div>
                 </Submenu>

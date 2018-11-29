@@ -11,7 +11,7 @@ class Fetch {
               'Accept': 'application/json',
               'Content-Type' : 'application/json'
             },
-            mode: "cors",
+            // mode: "cors",
             cache: "force-cache"
         }
     }

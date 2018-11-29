@@ -17,9 +17,10 @@
 </template>
 <script>
 import User from "../../api/user.js"
-import { mapMutations } from "vuex"
-import { getRoutePermission, extendRoutes } from "../../util/menu.js"
-import AllRoutesData from "../../router/fullRouter"
+import { mapActions } from "vuex"
+// import { getRoutePermission, extendRoutes } from "../../util/menu.js"
+// import AllRoutesData from "../../router/fullRouter"
+// import router from "../../router/index.js"
 let user = new User()
     export default {
         data () {
@@ -40,22 +41,17 @@ let user = new User()
             }
         },
         methods: {     
-            ...mapMutations([ 
-            'setAccess','setPermission', "setUserName"
+            ...mapActions([ 
+            'getUserMenu'
             ]), 
             handleSubmit(name) {
                 let vm = this
                 this.$refs[name].validate((valid) => {
                    user.login(this.formInline,(res, err) => {
                        if(!err){
-                           user.getUserInfo({ID:res.ID},(res, err) => {
+                           vm.getUserMenu().then((res) => {
                                debugger
-                               let menu = getRoutePermission(res.data)
-                               debugger
-                               let menuData = extendRoutes(menu, AllRoutesData)   
-                               console.log(vm.$router)   
-                               debugger
-                               console.log(menuData)                  
+                               vm.$router.push({name: "list"})
                            })
                        }
                    })

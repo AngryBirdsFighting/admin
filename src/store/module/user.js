@@ -1,11 +1,17 @@
-import Routers from "../../router/router";
+
 import {setToken , getToken} from "../../util/tools"
+import AllRoutesData from "../../router/fullRouter"
+import router from "../../router/index.js"
+import { getRoutePermission, extendRoutes } from "../../util/menu.js"
+import  UserApi from "../../api/user"
+
+let userApi = new UserApi()
 
 export default{
     state:{
         userName: "",
         access:[],
-        permission:[]  
+        menuList:[]  
     },
     getters:{
     },
@@ -15,13 +21,37 @@ export default{
             setToken(userName)
         },
         setAccess(state, access){
-            debugger
             state.access = access
         },
-        setPermission(state, permission){
+        setMenuList(state, menus) {
+            let menu = getRoutePermission(menus)
+            let menuData = extendRoutes(menu, AllRoutesData)
             debugger
-            state.permission = permission
+            state.menuList = menuData
+            router.addRoutes(menuData.concat([{
+                path: '*',
+                redirect: '/404'
+            }]));
         }
-    }
+    },
+    actions: {
+        getUserMenu ({ commit, rootState }) {
+          
+         return new Promise((resolve, reject) => {
+            userApi.getUserInfo({id:"11111"}, function(res, err){
+                if(!err){
+                    debugger
+                   commit("setMenuList", res.data)
+                   debugger
+                   resolve(res.data)
+                }else{
+                   reject(err)
+                }
+           })
+
+         }) 
+        }
+      }
+    
 }
 

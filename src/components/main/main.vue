@@ -2,8 +2,8 @@
 <template>
     <div class="layout" :class="{'layout-hide-text': spanLeft < 5}" >
         <Row type="flex">
-            <i-col :span="spanLeft" class="layout-menu-left">
-               <slide-menu :menuList = menuList @on-select = "toPage"></slide-menu>
+            <i-col v-if="menuList" :span="spanLeft" class="layout-menu-left">
+               <slide-menu  :menuList = menuList @on-select = "toPage"></slide-menu>
             </i-col>
             <i-col :span="spanRight">
                 <div class="layout-header">
@@ -37,13 +37,12 @@
 <script>
 import slideMenu from "./slideMenu/slideMenu.vue";
 import headerBar from "./headerBar/headerBar.vue";
-import { Fetch } from "../../fetch/";
 
-let fetch = new Fetch()
 import {mapGetters} from "vuex";
     export default {
         data () {
             return {
+                menuList: [],
                 spanLeft: 3,
                 spanRight: 21             
             }
@@ -60,25 +59,10 @@ import {mapGetters} from "vuex";
             iconSize () {
                 return this.spanLeft === 3 ? 14 : 24;
             },
-            ...mapGetters(["menuList"])
         },
         created(){
-            console.log(this.menuList)
-            let param = {
-                url: "/getData",
-                type: "Post",
-                data:{
-                    a:"11111",
-                    b:"222"
-                }
-            }
-            fetch.fetchAjax(param, (data, err) => {
-                if(err){
-                    alert(err)
-                }else{
-                    console.log(data)
-                }
-            })
+            debugger
+            this.menuList = this.$store.state.menu.menuList
         },
         methods: {
             toggleClick () {
@@ -92,7 +76,6 @@ import {mapGetters} from "vuex";
             },
             toPage (name){
                 let params = {}
-                debugger
                 this.$router.push({name, params})
             }
         }

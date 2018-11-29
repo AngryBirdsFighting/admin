@@ -2,7 +2,6 @@ import router from "../router/index"
 import vue from "vue"
 
 export const getMenuListByRouter = (routers,access) =>{
-    debugger
     let res = [];
     routers.forEach(item => {
         if(!item.meta.hideInMenu){
@@ -33,7 +32,6 @@ export const deepcopy = function (source) {
 
 //构造返回菜单
  const buildMenu = (menus, ckey) => {
-    debugger
     let menuData = [];
     let indexKeys = Array.isArray(menus) ? menus.map((e) => {return e.id}) : [];
     ckey = ckey || 'parent_id';
@@ -75,7 +73,6 @@ export const deepcopy = function (source) {
 } 
 // 构造路由权限
 export const getRoutePermission = function(userPermissions) {
-    debugger
     let routeHash = {};
     let setMenu2Hash = function(array, base) {
       array.map(key => {
@@ -102,7 +99,6 @@ export const getRoutePermission = function(userPermissions) {
     let findLocalRoute = function(array, base) {
       let replyResult = [];
       array.forEach(route => {
-        debugger
         let pathKey = (base ? base + '/' : '') + route.path;
         if (routePermission[pathKey]) {
           if (Array.isArray(route.children)) {
@@ -120,7 +116,7 @@ export const getRoutePermission = function(userPermissions) {
     findLocalRoute(AllRoutesData[0].children);
     
     // If the user does not have any routing authority
-
+debugger
     if (!actualRouter || !actualRouter.length) {
       // clear token, refresh page will jump to login screen.
       // util.session('token','');
@@ -151,12 +147,6 @@ export const getRoutePermission = function(userPermissions) {
     // Add actual routing to application
     let originPath = deepcopy(AllRoutesData);
     originPath[0].children = actualRouter;
-    debugger
-    vue.$router.addRoutes(originPath.concat([{
-        path: '*',
-        redirect: '/404'
-      }]));
-    console.log(actualRouter)
     debugger
     return actualRouter
     // this.$router.addRoutes(originPath.concat([{
