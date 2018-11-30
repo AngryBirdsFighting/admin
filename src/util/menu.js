@@ -116,7 +116,6 @@ export const getRoutePermission = function(userPermissions) {
     findLocalRoute(AllRoutesData[0].children);
     
     // If the user does not have any routing authority
-debugger
     if (!actualRouter || !actualRouter.length) {
       // clear token, refresh page will jump to login screen.
       // util.session('token','');
@@ -147,7 +146,6 @@ debugger
     // Add actual routing to application
     let originPath = deepcopy(AllRoutesData);
     originPath[0].children = actualRouter;
-    debugger
     return actualRouter
     // this.$router.addRoutes(originPath.concat([{
     //   path: '*',

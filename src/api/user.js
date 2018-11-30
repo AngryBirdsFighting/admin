@@ -12,7 +12,6 @@ class User extends Fetch {
         this.fetchAjax(pramas, callback)
     }
     getUserInfo(data, callback){
-        debugger
         let pramas = {
             url: "/getUserInfo1",
             method:"Post",

@@ -53,7 +53,7 @@ import {mapGetters} from "vuex";
         },
         computed: {
             height () {
-               let h =  window.innerHeight  - 170
+               let h =  window.innerHeight  - 171
                return h
             },
             iconSize () {
@@ -61,8 +61,8 @@ import {mapGetters} from "vuex";
             },
         },
         created(){
-            debugger
-            this.menuList = this.$store.state.menu.menuList
+            
+            this.menuList = this.$store.state.user.menuList
         },
         methods: {
             toggleClick () {

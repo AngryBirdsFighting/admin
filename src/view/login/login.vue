@@ -17,7 +17,7 @@
 </template>
 <script>
 import User from "../../api/user.js"
-import { mapActions } from "vuex"
+import { mapActions, mapMutations } from "vuex"
 // import { getRoutePermission, extendRoutes } from "../../util/menu.js"
 // import AllRoutesData from "../../router/fullRouter"
 // import router from "../../router/index.js"
@@ -44,14 +44,19 @@ let user = new User()
             ...mapActions([ 
             'getUserMenu'
             ]), 
+            ...mapMutations([ 
+            'setUserId'
+            ]), 
             handleSubmit(name) {
                 let vm = this
                 this.$refs[name].validate((valid) => {
                    user.login(this.formInline,(res, err) => {
                        if(!err){
+                           vm.setUserId(res.data.userId)
                            vm.getUserMenu().then((res) => {
-                               debugger
                                vm.$router.push({name: "list"})
+                           }).catch((err) => {
+                               alert(err)
                            })
                        }
                    })

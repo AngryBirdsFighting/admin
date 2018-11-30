@@ -5,12 +5,12 @@ export const isEmptyByObj = (obj) => {
     }
     return false
 }
-export const setToken = (name) => {
-    Cookies.set("name", name, {expires: 1})
+export const setToken = (name, value) => {
+    Cookies.set(name, value, {expires: 1})
   }
   
-  export const getToken = () => {
-    const token = Cookies.get("name")
+  export const getToken = (name) => {
+    const token = Cookies.get(name)
     if (token) return token
     else return false
   }
