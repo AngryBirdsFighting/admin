@@ -11,7 +11,6 @@
                         <Icon type="md-menu" color="black" size="12"></Icon>
                     </Button>
                     <header-bar></header-bar>
-                   
                 </div>
                 <div class="layout-breadcrumb">
                     <Breadcrumb>
@@ -23,7 +22,6 @@
                 <div class="layout-content" :style="'height:'+ height +'px;'" >
                     <div class="layout-content-main">
                         <router-view>
-                            
                         </router-view>
                     </div>
                 </div>
@@ -61,7 +59,6 @@ import {mapGetters} from "vuex";
             },
         },
         created(){
-            
             this.menuList = this.$store.state.user.menuList
         },
         methods: {
