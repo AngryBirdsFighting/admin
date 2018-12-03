@@ -54,52 +54,53 @@ export default {
           // minWidth: "400px",
           align: "center",
           render: (h, params) => {
-             let actionArr = []
-            if(1 == 2){
+            let actionArr = [];
+            if (1 == 2) {
               actionArr.push(
-                           h(
-                "Button",
-                {
-                  props: {
-                    type: "primary",
-                    size: "small"
-                  },
-                  style: {
-                    marginRight: "5px"
-                  },
-                  on: {
-                    click: () => {
-                      this.show(params.index);
+                h(
+                  "Button",
+                  {
+                    props: {
+                      type: "primary",
+                      size: "small"
+                    },
+                    style: {
+                      marginRight: "5px"
+                    },
+                    on: {
+                      click: () => {
+                        this.show(params.index);
+                      }
                     }
-                  }
-                },
-                "add"
-              )
-              )
-            }
-              if(1 ==1 ){
-                actionArr.push(
-                   h(
-                "Button",
-                {
-                  props: {
-                    type: "error",
-                    size: "small"
                   },
-                  on: {
-                    click: () => {
-                      this.remove(params.index);
-                    }
-                  }
-                },
-                "delete"
-              ),
+                  "add"
                 )
-              }
-            return h("div",actionArr
-            //  [
-   
-             
+              );
+            }
+            if (1 == 1) {
+              actionArr.push(
+                h(
+                  "Button",
+                  {
+                    props: {
+                      type: "error",
+                      size: "small"
+                    },
+                    on: {
+                      click: () => {
+                        this.remove(params.index);
+                      }
+                    }
+                  },
+                  "delete"
+                )
+              );
+            }
+            return h(
+              "div",
+              actionArr
+              //  [
+
               // h(
               //   "Button",
               //   {
@@ -130,7 +131,7 @@ export default {
               //   },
               //   "info"
               // )
-            // ]
+              // ]
             );
           }
         }
