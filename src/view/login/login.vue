@@ -18,9 +18,6 @@
 <script>
 import User from "../../api/user.js"
 import { mapActions, mapMutations } from "vuex"
-// import { getRoutePermission, extendRoutes } from "../../util/menu.js"
-// import AllRoutesData from "../../router/fullRouter"
-// import router from "../../router/index.js"
 let user = new User()
     export default {
         data () {

@@ -34,7 +34,7 @@ export default [{
       meta: {
         title: '商品信息'
       },
-      component: () => import('../view/menu1/menu1.vue')
+      component: () => import('../view/goods/goodsList.vue')
     },
     {
       path: 'list2',
@@ -42,7 +42,7 @@ export default [{
       meta: {
         title: '商品信息'
       },
-      component: () => import('../view/menu1/menu1.vue')
+      component: () => import('../view/goods/goodsList.vue')
     }]
   }, {
     path: '/orders',
@@ -58,7 +58,7 @@ export default [{
       meta: {
         title: '订单信息'
       },
-      component: () => import('../view/menu1/menu1.vue')
+      component: () => import('../view/goods/goodsList.vue')
     },
     {
       path: 'orders2',
@@ -66,7 +66,7 @@ export default [{
       meta: {
         title: '订单信息'
       },
-      component: () => import('../view/menu1/menu1.vue')
+      component: () => import('../view/goods/goodsList.vue')
     }]
   }]
 }];

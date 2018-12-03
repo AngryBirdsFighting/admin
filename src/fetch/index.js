@@ -34,30 +34,36 @@ class Fetch {
      * @param  {Function} callback 回调函数
      */
     async fetchAjax(param, callback){
-        this.reqConfig.method = param.method || "Get";  
-        if(isEmptyByObj(param.data)){
-            if(this.reqConfig.method == "Get"){
-                param.url += "?";
-                let i = 0
-                for (const key in param.data) {
-                    if(i != 0 ){
-                        param.url += "&";
+        // try{
+            this.reqConfig.method = param.method || "Get";  
+            if(param.data && isEmptyByObj(param.data)){
+                if(this.reqConfig.method == "Get"){
+                    param.url += "?";
+                    let i = 0
+                    for (const key in param.data) {
+                        if(i != 0 ){
+                            param.url += "&";
+                        }
+                        param.url += `${key}=${param.data[key]}`
+                        i++        
                     }
-                    param.url += `${key}=${param.data[key]}`
-                    i++        
+                } else {
+                    this.reqConfig.body = JSON.stringify(param.data)
                 }
-            } else {
-                this.reqConfig.body = JSON.stringify(param.data)
-            }
-            var res = await this.request(this.baseUrl + param.url, this.reqConfig);
-            if(res == "408"){
-                callback({},"请求超时")
-            }else if(res.status == 200){
-                callback(await res.json())
-            }else{
-                callback({},this.judgeRes(res))
-            }            
-        }  
+            }  
+                var res = await this.request(this.baseUrl + param.url, this.reqConfig);
+                if(res == "408"){
+                    callback({},"请求超时")
+                }else if(res.status == 200){
+                    callback(await res.json())
+                }else{
+                    callback({},this.judgeRes(res))
+                }            
+           
+        // }catch(err){
+
+        // }
+      
     }
 
     // 错误判断
