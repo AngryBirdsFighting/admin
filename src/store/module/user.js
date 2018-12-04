@@ -9,7 +9,8 @@ export default {
     state: {
         userId: "",
         access: [],
-        menuList: []
+        menuList: [],
+        resource: {},
     },
     getters: {
     },
@@ -21,7 +22,11 @@ export default {
         setAccess(state, access) {
             state.access = access
         },
+        setResource(state, resource){
+            state.resource = resource
+        },
         setMenuList(state, menus) {
+            
             let menu = getRoutePermission(menus)
             let menuData = extendRoutes(menu, AllRoutesData)
             state.menuList = menuData
@@ -42,6 +47,7 @@ export default {
                 userApi.getUserInfo({ id: state.userId }, function (res, err) {
                     if (!err) {
                         commit("setMenuList", res.data)
+                        commit("setResource", res.data.resource)
                         resolve(res.data)
                     } else {
                         reject(err)

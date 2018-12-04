@@ -54,85 +54,99 @@ export default {
           // minWidth: "400px",
           align: "center",
           render: (h, params) => {
-            let actionArr = [];
-            if (1 == 2) {
-              actionArr.push(
-                h(
-                  "Button",
-                  {
-                    props: {
-                      type: "primary",
-                      size: "small"
-                    },
-                    style: {
-                      marginRight: "5px"
-                    },
-                    on: {
-                      click: () => {
-                        this.show(params.index);
-                      }
-                    }
+            return h("div", [
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "primary",
+                    size: "small"
                   },
-                  "add"
-                )
-              );
-            }
-            if (1 == 1) {
-              actionArr.push(
-                h(
-                  "Button",
-                  {
-                    props: {
-                      type: "error",
-                      size: "small"
-                    },
-                    on: {
-                      click: () => {
-                        this.remove(params.index);
-                      }
-                    }
+                  style: {
+                    marginRight: "5px"
                   },
-                  "delete"
-                )
-              );
-            }
-            return h(
-              "div",
-              actionArr
-              //  [
-
-              // h(
-              //   "Button",
-              //   {
-              //     props: {
-              //       type: "error",
-              //       size: "small"
-              //     },
-              //     on: {
-              //       click: () => {
-              //         this.remove(params.index);
-              //       }
-              //     }
-              //   },
-              //   "edit"
-              // ),
-              // h(
-              //   "Button",
-              //   {
-              //     props: {
-              //       type: "error",
-              //       size: "small"
-              //     },
-              //     on: {
-              //       click: () => {
-              //         this.remove(params.index);
-              //       }
-              //     }
-              //   },
-              //   "info"
-              // )
-              // ]
-            );
+                  directives: [
+                    {
+                      name: "has",
+                      value: "add",
+                      arg: "add"
+                    }
+                  ],
+                  on: {
+                    click: () => {
+                      // this.show(params.index);
+                    }
+                  }
+                },
+                "add"
+              ),
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "error",
+                    size: "small"
+                  },
+                  directives: [
+                    {
+                      name: "has",
+                      value: "delete",
+                      arg: "delete"
+                    }
+                  ],
+                  on: {
+                    click: () => {
+                      // this.remove(params.index);
+                    }
+                  }
+                },
+                "delete"
+              ),
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "error",
+                    size: "small"
+                  },
+                  directives: [
+                    {
+                      name: "has",
+                      value: "edit",
+                      arg: "edit"
+                    }
+                  ],
+                  on: {
+                    click: () => {
+                      // this.remove(params.index);
+                    }
+                  }
+                },
+                "edit"
+              ),
+              h(
+                "Button",
+                {
+                  props: {
+                    type: "error",
+                    size: "small"
+                  },
+                  directives: [
+                    {
+                      name: "has",
+                      value: "info",
+                      arg: "info"
+                    }
+                  ],
+                  on: {
+                    click: () => {
+                      // this.remove(params.index);
+                    }
+                  }
+                },
+                "info"
+              )
+            ]);
           }
         }
       ],
@@ -147,6 +161,7 @@ export default {
   },
   created() {
     let vm = this;
+    debugger;
     goods.getDictionary("", (res, err) => {
       vm.goodsType = res.data.goods;
     });
