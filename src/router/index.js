@@ -13,7 +13,7 @@ const router = new Router({
   routes
 });
 router.beforeEach((to, from, next) => {
-  iView.LoadingBar.start()
+  // iView.LoadingBar.start()
   const token = getToken("userId")
   if (!token && to.name !== LOGIN_PAGE_NAME) {
     // 未登录且要跳转的页面不是登录页
@@ -46,7 +46,7 @@ router.beforeEach((to, from, next) => {
   }
 })
 router.afterEach(to => {
-  iView.LoadingBar.finish()
+  // iView.LoadingBar.finish()
   window.scrollTo(0, 0)
 })
 

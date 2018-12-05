@@ -8,9 +8,7 @@ import "iview/dist/styles/iview.css";
 
 Vue.directive('has', {
   bind (el, binding, vnode) {
-    debugger
       let name = vnode.context.$route.name;
-      debugger
       if (!store.state.user.resource[name].includes(binding.value)) {
           el.parentNode.removeChild(el);
       }

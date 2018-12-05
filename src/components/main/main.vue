@@ -1,24 +1,24 @@
 
 <template>
-    <div class="layout" :class="{'layout-hide-text': spanLeft < 5}" >
+    <div class="layout">
         <Row type="flex">
-            <i-col v-if="menuList" :span="spanLeft" class="layout-menu-left">
-               <slide-menu  :menuList = menuList @on-select = "toPage"></slide-menu>
+            <i-col v-if="menuList && menuStyle" :span="spanLeft" class="layout-menu-left">
+               <slide-menu  :menuList = menuList @on-open-change="menuChange" :openName="selectedArray" :activeName="selected" @on-select = "toPage"></slide-menu>
+            </i-col>
+            <i-col v-else-if ="menuList && !menuStyle" :span="spanLeft" class="layout-menu-left">
+                <collapsed-menu :menuList = menuList   @on-select = "toPage"></collapsed-menu>
             </i-col>
             <i-col :span="spanRight">
-                <div class="layout-header">
-                    <Button type="text" @click="toggleClick">
-                        <Icon type="md-menu" color="black" size="12"></Icon>
-                    </Button>
-                    <header-bar></header-bar>
+                <div class="layout-header">             
+                    <header-bar  @on-toggle="toggleClick"></header-bar>
                 </div>
-                <div class="layout-breadcrumb">
+                <!-- <div class="layout-breadcrumb">
                     <Breadcrumb>
                         <Breadcrumb-item href="#">首页</Breadcrumb-item>
                         <Breadcrumb-item href="#">应用中心</Breadcrumb-item>
                         <Breadcrumb-item>某应用</Breadcrumb-item>
                     </Breadcrumb>
-                </div>
+                </div> -->
                 <div class="layout-content" :style="'height:'+ height +'px;'" >
                     <div class="layout-content-main">
                         <router-view>
@@ -33,7 +33,9 @@
     </div>
 </template>
 <script>
+
 import slideMenu from "./slideMenu/slideMenu.vue";
+import collapsedMenu from "./collapsedMenu/collapsedMenu.vue";
 import headerBar from "./headerBar/headerBar.vue";
 
 import {mapGetters} from "vuex";
@@ -42,12 +44,16 @@ import {mapGetters} from "vuex";
             return {
                 menuList: [],
                 spanLeft: 3,
-                spanRight: 21             
+                spanRight: 21,
+                menuStyle:true,
+                selected: "list",
+                selectedArray:["goods"]
             }
         },
         components:{
             "slide-menu": slideMenu,
-            "header-bar": headerBar
+            "header-bar": headerBar,
+            "collapsed-menu": collapsedMenu
         },
         computed: {
             height () {
@@ -66,14 +72,20 @@ import {mapGetters} from "vuex";
                 if (this.spanLeft === 3) {
                     this.spanLeft = 1;
                     this.spanRight = 23;
+                    this.menuStyle = false
                 } else {
                     this.spanLeft = 3;
                     this.spanRight = 21;
+                    this.menuStyle = true
                 }
             },
             toPage (name){
+                this.selected = name
                 let params = {}
                 this.$router.push({name, params})
+            },
+            menuChange(name){
+                this.selectedArray = name
             }
         }
         

@@ -12,7 +12,7 @@ class Fetch {
               'Content-Type' : 'application/json'
             },
             // mode: "cors",
-            cache: "force-cache"
+            cache: "no-cache"
         }
     }
     // 增加超时限制

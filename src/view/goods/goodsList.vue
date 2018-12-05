@@ -161,7 +161,6 @@ export default {
   },
   created() {
     let vm = this;
-    debugger;
     goods.getDictionary("", (res, err) => {
       vm.goodsType = res.data.goods;
     });
