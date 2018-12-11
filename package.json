@@ -8,6 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "es6-promise": "^4.2.5",
+    "fetch-detector": "^1.0.1",
+    "fetch-ie8": "^1.5.0",
     "iview": "^3.1.5",
     "js-cookie": "^2.2.0",
     "vue": "^2.5.17",
@@ -21,6 +25,7 @@
     "@vue/eslint-config-prettier": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-import": "^1.11.0",
+    "babel-polyfill": "^6.26.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
     "node-sass": "^4.9.0",

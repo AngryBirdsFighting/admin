@@ -4,6 +4,10 @@ import router from "./router/index.js";
 import store from "./store/";
 import iView from 'iview';
 import "iview/dist/styles/iview.css";
+import 'babel-polyfill';
+require('es6-promise').polyfill();
+import 'fetch-detector';
+import 'fetch-ie8';
 
 
 Vue.directive('has', {
